@@ -105,15 +105,14 @@ const HomeView = () => {
   return (
     <div className="fixed inset-0 flex bg-gradient-to-br from-gray-50 via-blue-50 to-indigo-50 dark:from-gray-900 dark:via-blue-900 dark:to-indigo-900 transition-colors duration-300">
       {/* Sidebar - Only visible on desktop */}
-      <div className="hidden lg:flex flex-col w-64 border-r border-gray-200 dark:border-gray-700 bg-white/95 dark:bg-gray-900/95 backdrop-blur-lg">
-        <div className="p-4 border-b border-gray-200 dark:border-gray-700">
-          <div className="flex items-center space-x-3">
+      <div className="hidden lg:flex flex-col w-64 border-r border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
+        <div className="p-6">
+          <div className="flex items-center space-x-2 mb-10">
             <img src={NervotecLogo} alt="Nervotec Logo" className="h-8" />
-            <span className="text-lg font-semibold text-gray-900 dark:text-white">NervoEdge</span>
           </div>
         </div>
         
-        <nav className="flex-1 p-3 space-y-0.5">
+        <nav className="flex-1 px-6 space-y-1">
           <a href="#" className="flex items-center space-x-3 px-3 py-2 rounded-lg bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300">
             <Home className="h-5 w-5" />
             <span className="font-medium">Dashboard</span>
@@ -149,11 +148,11 @@ const HomeView = () => {
       <div className="flex-1 flex flex-col min-w-0">
         {/* Header */}
         <div className="flex-shrink-0 bg-white/95 dark:bg-gray-900/95 backdrop-blur-lg border-b border-gray-200/50 dark:border-gray-700/50">
-          <div className="px-3 py-2 md:px-6 md:py-4">
+          <div className="px-6 py-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-2 md:space-x-3">
                 <div className="flex items-center lg:hidden">
-                  <img src={NervotecLogo} alt="NervoEdge Health Monitor" className="h-8 md:h-10" />
+                  <img src={NervotecLogo} alt="Nervotec Logo" className="h-8 md:h-10" />
                 </div>
               </div>
               
@@ -185,7 +184,7 @@ const HomeView = () => {
           <div className="container mx-auto px-4">
             {/* Welcome Section */}
             <div className={`mb-6 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-              <div className="bg-white dark:bg-gray-800 rounded-xl md:rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700 p-4 md:p-6 hover:shadow-xl transition-all duration-300">
+              <div className="bg-white dark:bg-gray-800 rounded-xl md:rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700 p-6 hover:shadow-xl transition-all duration-300">
                 <div className="flex items-center justify-between mb-4">
                   <div>
                     <h2 className="text-lg md:text-2xl font-bold text-gray-900 dark:text-white">Hello, User! 👋</h2>
@@ -269,7 +268,6 @@ const HomeView = () => {
                 <Info className="h-3 w-3" />
                 <span>For informational purposes only. Not a medical device.</span>
               </div>
-              <p>NervoEdge v2.0.5 Alpha Build 1</p>
             </div>
           </div>
         </div>

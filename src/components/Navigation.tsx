@@ -1,7 +1,7 @@
-
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Home, Camera, Settings } from 'lucide-react';
+import NervotecLogo from '../assets/Nervotec.png';
 
 const Navigation = () => {
   const location = useLocation();
@@ -45,17 +45,11 @@ const Navigation = () => {
       {/* Desktop Sidebar */}
       <div className="hidden md:block fixed left-0 top-0 h-full w-64 bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-700 shadow-sm z-40">
         <div className="p-6">
-          <div className="flex items-center space-x-3 mb-8">
-            <div className="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center">
-              <span className="text-white font-bold">N</span>
-            </div>
-            <div>
-              <h1 className="text-xl font-bold text-gray-900 dark:text-white">NervoEdge</h1>
-              <p className="text-sm text-gray-600 dark:text-gray-400">Health Monitor</p>
-            </div>
+          <div className="flex items-center space-x-2 mb-10">
+            <img src={NervotecLogo} alt="Nervotec Logo" className="h-8" />
           </div>
 
-          <nav className="space-y-2">
+          <nav className="space-y-1">
             {navItems.map(({ path, icon: Icon, label }) => (
               <button
                 key={path}
