@@ -1,9 +1,9 @@
-
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import HomeView from '../components/HomeView';
 import ScanView from '../components/ScanView';
 import Navigation from '../components/Navigation';
+import SettingsPage from '../components/SettingsPage';
 
 const Index = () => {
   return (
@@ -16,7 +16,7 @@ const Index = () => {
             <Route path="/home" element={<HomeView />} />
             <Route path="/scan" element={<ScanView />} />
             <Route path="/activity" element={<div className="p-8 text-center"><h1 className="text-2xl font-bold text-gray-900">Activity Coming Soon</h1></div>} />
-            <Route path="/settings" element={<div className="p-8 text-center"><h1 className="text-2xl font-bold text-gray-900">Settings Coming Soon</h1></div>} />
+            <Route path="/settings" element={<SettingsPage />} />
           </Routes>
         </div>
       </div>
