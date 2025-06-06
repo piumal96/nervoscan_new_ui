@@ -215,13 +215,13 @@ const ScanView: React.FC = () => {
   const startWebcam = async () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({
-        video: { 
-          width: { ideal: 1280 }, 
+        video: {
+          width: { ideal: 720 },
           height: { ideal: 720 },
-          facingMode: 'user'
+          aspectRatio: 1,
+          facingMode: 'user',
         }
       });
-      
       if (videoRef.current) {
         videoRef.current.srcObject = stream;
         videoRef.current.addEventListener('loadeddata', () => {
@@ -254,12 +254,6 @@ const ScanView: React.FC = () => {
 
   const predictWebcam = async () => {
     if (!webcamRunningRef.current || !videoRef.current || !canvasRef.current || !faceLandmarkerRef.current) {
-      console.log('Missing required refs:', {
-        webcamRunning: webcamRunningRef.current,
-        video: !!videoRef.current,
-        canvas: !!canvasRef.current,
-        faceLandmarker: !!faceLandmarkerRef.current
-      });
       return;
     }
 
@@ -270,14 +264,14 @@ const ScanView: React.FC = () => {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    const ratio = video.videoHeight / video.videoWidth;
-    const videoWidth = 640;
-    video.style.width = `${videoWidth}px`;
-    video.style.height = `${videoWidth * ratio}px`;
-    canvas.style.width = `${videoWidth}px`;
-    canvas.style.height = `${videoWidth * ratio}px`;
+    // Always use the displayed size for both video and canvas (square)
+    const displaySize = video.parentElement?.offsetWidth || 400;
     canvas.width = video.videoWidth;
     canvas.height = video.videoHeight;
+    canvas.style.width = `${displaySize}px`;
+    canvas.style.height = `${displaySize}px`;
+    video.style.width = `${displaySize}px`;
+    video.style.height = `${displaySize}px`;
 
     let startTimeMs = performance.now();
     if (lastVideoTimeRef.current !== video.currentTime) {
@@ -403,16 +397,18 @@ const ScanView: React.FC = () => {
       </div>
       {/* Camera/Scan area centered and responsive */}
       <div className="flex flex-col items-center w-full px-4">
-        <div className="relative flex items-center justify-center w-full max-w-xs md:max-w-md aspect-[3/4] bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden shadow-lg">
+        <div className="relative flex items-center justify-center w-full max-w-xs md:max-w-md aspect-square bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden shadow-lg">
           <video
             ref={videoRef}
-            className="absolute inset-0 w-full h-full object-cover rounded-full"
+            className="absolute inset-0 w-full h-full object-cover object-center rounded-full"
             autoPlay
             playsInline
+            style={{ aspectRatio: '1/1', background: 'black' }}
           />
           <canvas
             ref={canvasRef}
-            className="absolute inset-0 w-full h-full rounded-full"
+            className="absolute inset-0 w-full h-full rounded-full pointer-events-none"
+            style={{ aspectRatio: '1/1' }}
           />
           {/* Green animated border (optional, for scan progress) */}
           {scanning && (
