@@ -1,7 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { CameraIcon, StopIcon, ArrowPathIcon } from '@heroicons/react/24/outline';
+import { CameraIcon, StopIcon } from '@heroicons/react/24/outline';
 import * as vision from "@mediapipe/tasks-vision";
 import { DrawingUtils } from "@mediapipe/drawing_utils/drawing_utils.js";
+import NervotecLogo from '../assets/Nervotec.png';
 
 const { FaceLandmarker, FilesetResolver } = vision;
 
@@ -99,6 +100,14 @@ const ScanView: React.FC = () => {
     };
 
     initFaceLandmarker();
+  }, []);
+
+  // Auto-start camera on mount
+  useEffect(() => {
+    startWebcam();
+    // Cleanup on unmount
+    return () => stopWebcam();
+    // eslint-disable-next-line
   }, []);
 
   // Helper functions
@@ -382,83 +391,86 @@ const ScanView: React.FC = () => {
     stopWebcam();
   };
 
+  // Dummy values for Heart Rate and HRV (replace with real values if available)
+  const heartRate = 85;
+  const hrv = 111;
+
   return (
-    <div className="min-h-screen bg-gray-100 dark:bg-gray-900">
-      <div className="container mx-auto px-6 py-6">
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
-          <div className="flex justify-between items-center mb-6">
-            <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Face Scan</h1>
-            <div className="flex space-x-2">
-              {!scanning ? (
-                <button
-                  onClick={handleStartScan}
-                  className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-                >
-                  <CameraIcon className="h-5 w-5 mr-2" />
-                  Start Scan
-                </button>
-              ) : (
-                <button
-                  onClick={handleStopScan}
-                  className="flex items-center px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
-                >
-                  <StopIcon className="h-5 w-5 mr-2" />
-                  Stop Scan
-                </button>
-              )}
-            </div>
-          </div>
-
-          <div className="relative aspect-video bg-gray-900 rounded-lg overflow-hidden mb-6">
-            <video
-              ref={videoRef}
-              className="absolute inset-0 w-full h-full object-cover"
-              autoPlay
-              playsInline
-            />
-            <canvas
-              ref={canvasRef}
-              className="absolute inset-0 w-full h-full"
-            />
-            {alignmentStatus && (
-              <div className={`absolute top-4 left-1/2 transform -translate-x-1/2 px-4 py-2 rounded-lg text-white font-medium ${
-                alignmentStatus === FaceAlignmentError.ALIGNED ? 'bg-green-500' : 'bg-red-500'
-              }`}>
-                {alignmentStatus}
-              </div>
-            )}
-            {error && (
-              <div className="absolute top-4 left-1/2 transform -translate-x-1/2 px-4 py-2 bg-red-500 text-white rounded-lg">
-                {error}
-              </div>
-            )}
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-            <div className="bg-gray-100 dark:bg-gray-700 rounded-lg p-4">
-              <div className="text-sm text-gray-600 dark:text-gray-300">FPS</div>
-              <div className="text-2xl font-bold text-gray-900 dark:text-white">{fps}</div>
-            </div>
-            <div className="bg-gray-100 dark:bg-gray-700 rounded-lg p-4">
-              <div className="text-sm text-gray-600 dark:text-gray-300">Resolution</div>
-              <div className="text-2xl font-bold text-gray-900 dark:text-white">{resolution}</div>
-            </div>
-          </div>
-
+    <div className="min-h-screen flex flex-col items-center justify-start bg-white dark:bg-gray-900">
+      {/* Logo at the top */}
+      <div className="w-full flex justify-center py-8">
+        <img src={NervotecLogo} alt="nervoedge" className="h-8 md:h-10" />
+      </div>
+      {/* Camera/Scan area centered and responsive */}
+      <div className="flex flex-col items-center w-full px-4">
+        <div className="relative flex items-center justify-center w-full max-w-xs md:max-w-md aspect-[3/4] bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden shadow-lg">
+          <video
+            ref={videoRef}
+            className="absolute inset-0 w-full h-full object-cover rounded-full"
+            autoPlay
+            playsInline
+          />
+          <canvas
+            ref={canvasRef}
+            className="absolute inset-0 w-full h-full rounded-full"
+          />
+          {/* Green animated border (optional, for scan progress) */}
           {scanning && (
-            <div className="space-y-2">
-              <div className="flex justify-between text-sm text-gray-600 dark:text-gray-300">
-                <span>Scanning in progress...</span>
-                <span>{Math.round(progress)}%</span>
-              </div>
-              <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                <div
-                  className="bg-blue-600 h-2 rounded-full transition-all duration-300"
-                  style={{ width: `${progress}%` }}
-                />
-              </div>
-            </div>
+            <div className="absolute inset-0 rounded-full border-4 border-green-400 animate-pulse pointer-events-none" />
           )}
+        </div>
+        {/* Scan button below camera */}
+        <div className="mt-6">
+          {!scanning ? (
+            <button
+              onClick={handleStartScan}
+              className="flex items-center px-6 py-2 bg-blue-600 text-white rounded-full shadow hover:bg-blue-700 transition-colors text-lg font-semibold"
+            >
+              <CameraIcon className="h-6 w-6 mr-2" />
+              Start Scan
+            </button>
+          ) : (
+            <button
+              onClick={handleStopScan}
+              className="flex items-center px-6 py-2 bg-red-600 text-white rounded-full shadow hover:bg-red-700 transition-colors text-lg font-semibold"
+            >
+              <StopIcon className="h-6 w-6 mr-2" />
+              Stop Scan
+            </button>
+          )}
+        </div>
+        {/* Progress bar and time remaining */}
+        {scanning && (
+          <div className="w-full max-w-xs md:max-w-md mt-6">
+            <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+              <div
+                className="bg-blue-600 h-2 rounded-full transition-all duration-300"
+                style={{ width: `${progress}%` }}
+              />
+            </div>
+            <div className="text-center text-gray-500 text-sm mt-1 font-semibold">
+              {60 - Math.floor((progress / 100) * 60)}s Remaining
+            </div>
+          </div>
+        )}
+        {/* Heart Rate and HRV cards below scan area */}
+        <div className="flex flex-col md:flex-row gap-4 mt-8 w-full max-w-xs md:max-w-md justify-center">
+          <div className="flex-1 bg-white border border-gray-200 rounded-xl shadow p-4 flex flex-col items-center">
+            <div className="flex items-center gap-2 mb-1">
+              <span className="text-red-500 text-xl">❤</span>
+              <span className="font-semibold text-gray-700 text-base">Heart Rate</span>
+            </div>
+            <div className="text-2xl font-bold text-gray-900">{heartRate} <span className="text-base font-medium">bpm</span></div>
+            <div className="text-xs text-gray-500 mt-1">Beats per minute</div>
+          </div>
+          <div className="flex-1 bg-white border border-gray-200 rounded-xl shadow p-4 flex flex-col items-center">
+            <div className="flex items-center gap-2 mb-1">
+              <span className="text-pink-500 text-xl">📈</span>
+              <span className="font-semibold text-gray-700 text-base">HRV</span>
+            </div>
+            <div className="text-2xl font-bold text-gray-900">{hrv}<span className="text-base font-medium">ms</span></div>
+            <div className="text-xs text-gray-500 mt-1">HRV (milliseconds)</div>
+          </div>
         </div>
       </div>
     </div>
