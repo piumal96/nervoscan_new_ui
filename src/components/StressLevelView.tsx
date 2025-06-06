@@ -52,9 +52,9 @@ const StressLevelView: React.FC<StressLevelViewProps> = ({ stressLevel }) => {
   const strokeDashoffset = circumference - (stressData.value / 100) * circumference;
 
   return (
-    <div className={`bg-white dark:bg-gray-800 rounded-2xl shadow-md border border-gray-200 dark:border-gray-700 p-6 hover:shadow-xl hover:scale-[1.03] transition-all duration-300 min-h-[200px]` + (animate ? ' animate-fade-in-up' : ' opacity-0 translate-y-4')} aria-label="Stress Level Card">
+    <div className={`bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700/50 p-6 transition-all duration-300 min-h-[200px] backdrop-blur-sm bg-opacity-95 dark:bg-opacity-95` + (animate ? ' animate-fade-in-up' : ' opacity-0 translate-y-4')} aria-label="Stress Level Card">
       <div className="flex items-center space-x-3 mb-4">
-        <div className="w-10 h-10 bg-indigo-100 dark:bg-indigo-900/30 rounded-xl flex items-center justify-center">
+        <div className="w-10 h-10 bg-indigo-100 dark:bg-indigo-900/30 rounded-xl flex items-center justify-center shadow-sm">
           <Brain className="h-5 w-5 text-indigo-600 dark:text-indigo-400" />
         </div>
         <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Stress Level</h3>

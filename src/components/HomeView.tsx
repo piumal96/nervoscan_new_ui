@@ -198,7 +198,7 @@ const HomeView = () => {
                 
                 <div className="bg-gradient-to-r from-blue-50 to-green-50 dark:from-blue-900/30 dark:to-green-900/30 rounded-xl p-4">
                   <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">Health Overview</h3>
-                  <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">Vitals extracted from facial scan analysis. Keep up the healthy lifestyle!</p>
+                  <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">Regular facial scans help track your health trends. This is a demo by Nervotec.</p>
                 </div>
               </div>
             </div>

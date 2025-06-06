@@ -22,7 +22,7 @@ const HealthScore: React.FC<HealthScoreProps> = ({ score }) => {
   };
 
   return (
-    <div className={`bg-white dark:bg-gray-800 rounded-2xl shadow-md border border-gray-200 dark:border-gray-700 p-4 md:p-6 hover:shadow-xl hover:scale-[1.03] transition-all duration-300 min-h-[200px]` + (animate ? ' animate-fade-in-up' : ' opacity-0 translate-y-4')} aria-label="Health Score Card">
+    <div className={`bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700/50 p-4 md:p-6 transition-all duration-300 min-h-[200px] backdrop-blur-sm bg-opacity-95 dark:bg-opacity-95` + (animate ? ' animate-fade-in-up' : ' opacity-0 translate-y-4')} aria-label="Health Score Card">
       <div className="flex items-center justify-between mb-3 md:mb-6">
         <h3 className="text-base md:text-lg font-semibold text-gray-900 dark:text-white tracking-tight">Health Score</h3>
         <span className={`px-2 md:px-3 py-1 rounded-full text-xs font-medium ${

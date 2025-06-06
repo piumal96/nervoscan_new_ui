@@ -70,7 +70,7 @@ const Navigation = () => {
         <div className="absolute bottom-6 left-6 right-6">
           <div className="bg-gradient-to-r from-blue-50 to-green-50 dark:from-blue-900/30 dark:to-green-900/30 rounded-xl p-4">
             <h3 className="font-semibold text-gray-900 dark:text-white text-sm mb-1">Pro Tip</h3>
-            <p className="text-xs text-gray-600 dark:text-gray-400">Regular facial scans help track your health trends</p>
+            <p className="text-xs text-gray-600 dark:text-gray-400">Regular facial scans help track your health trends. This is a demo by Nervotec.</p>
           </div>
         </div>
       </div>

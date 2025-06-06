@@ -46,12 +46,12 @@ const QuickSummaryCards: React.FC<QuickSummaryCardsProps> = ({ data }) => {
           return (
             <div
               key={card.title}
-              className="bg-white dark:bg-gray-800 rounded-2xl shadow-md border border-gray-200 dark:border-gray-700 p-3 md:p-6 hover:shadow-xl hover:scale-[1.03] transition-all duration-300 text-center min-w-[120px] md:min-w-0 md:min-h-[200px] flex-shrink-0"
+              className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700/50 p-3 md:p-6 transition-all duration-300 text-center min-w-[120px] md:min-w-0 md:min-h-[200px] flex-shrink-0 backdrop-blur-sm bg-opacity-95 dark:bg-opacity-95"
               style={{
                 animation: `fadeIn 0.6s ease-out ${index * 0.1}s both`
               }}
             >
-              <div className={`w-8 h-8 md:w-12 md:h-12 rounded-lg md:rounded-xl ${card.bgColor} ${card.bgColorDark} flex items-center justify-center mb-2 md:mb-4 mx-auto shadow-lg`}>
+              <div className={`w-8 h-8 md:w-12 md:h-12 rounded-xl md:rounded-2xl ${card.bgColor} ${card.bgColorDark} flex items-center justify-center mb-2 md:mb-4 mx-auto shadow-sm`}>
                 <Icon className="h-4 w-4 md:h-6 md:w-6 text-white" />
               </div>
               <div className="space-y-0.5 md:space-y-2">

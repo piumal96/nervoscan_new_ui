@@ -87,10 +87,10 @@ const EnhancedMetricCard: React.FC<MetricCardData> = ({
         style={{ transformStyle: 'preserve-3d' }}
       >
         {/* Front Side */}
-        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-md border border-gray-200 dark:border-gray-700 p-3 md:p-4 hover:shadow-xl hover:scale-[1.02] transition-all duration-300 h-full flex flex-col">
+        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700/50 p-3 md:p-4 transition-all duration-300 h-full flex flex-col backdrop-blur-sm bg-opacity-95 dark:bg-opacity-95">
           {/* Header */}
           <div className="flex items-center mb-2">
-            <div className={`w-8 h-8 rounded-lg ${currentColors.bg} ${currentColors.bgDark} flex items-center justify-center shadow-lg mr-2 flex-shrink-0`}>
+            <div className={`w-8 h-8 rounded-xl ${currentColors.bg} ${currentColors.bgDark} flex items-center justify-center shadow-sm mr-2 flex-shrink-0`}>
               <MetricIcon className="h-4 w-4 text-white" />
             </div>
             <h3 className="text-sm font-medium text-gray-900 dark:text-white leading-tight line-clamp-2">{title}</h3>
@@ -149,7 +149,7 @@ const EnhancedMetricCard: React.FC<MetricCardData> = ({
         </div>
 
         {/* Back Side (Info) */}
-        <div className="absolute inset-0 bg-white dark:bg-gray-800 rounded-2xl shadow-md border border-gray-200 dark:border-gray-700 p-4 flex flex-col items-center justify-center h-full backface-hidden rotate-y-180">
+        <div className="absolute inset-0 bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700/50 p-4 flex flex-col items-center justify-center h-full backface-hidden rotate-y-180 backdrop-blur-sm bg-opacity-95 dark:bg-opacity-95">
           <Info className="h-6 w-6 text-blue-500 mb-2" />
           <div className="flex-1 w-full flex flex-col">
             <div className="text-sm text-gray-700 dark:text-gray-200 text-center max-w-xs mx-auto overflow-y-auto flex-1 mb-4" style={{maxHeight: '120px'}}>
