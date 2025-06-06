@@ -395,18 +395,24 @@ const ScanView: React.FC = () => {
       </div>
       {/* Camera/Scan area centered and responsive */}
       <div className="flex flex-col items-center w-full px-4">
-        <div className="relative flex items-center justify-center w-full max-w-xs md:max-w-md aspect-square bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden shadow-lg border-4 border-green-500">
+        <div className="
+          relative flex items-center justify-center
+          w-[70vw] h-[90vw] max-w-[320px] max-h-[500px]
+          bg-gray-100 dark:bg-gray-800
+          rounded-full overflow-hidden shadow-lg border-4 border-green-500
+          sm:w-[220px] sm:h-[340px] md:w-[320px] md:h-[500px]
+        ">
           <video
             ref={videoRef}
-            className="absolute inset-0 w-full h-full object-cover object-center rounded-full"
+            className="absolute inset-0 w-full h-full object-fill object-center"
             autoPlay
             playsInline
-            style={{ aspectRatio: '1/1', background: 'black' }}
+            style={{ width: '100%', height: '100%', background: 'black' }}
           />
           <canvas
             ref={canvasRef}
-            className="absolute inset-0 w-full h-full rounded-full pointer-events-none"
-            style={{ aspectRatio: '1/1' }}
+            className="absolute inset-0 w-full h-full pointer-events-none"
+            style={{ width: '100%', height: '100%' }}
           />
           {/* Green animated border (optional, for scan progress) */}
           {scanning && (
