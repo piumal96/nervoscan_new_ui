@@ -457,8 +457,8 @@ const ScanView: React.FC = () => {
             </div>
           </div>
         ) : (
-          <div className="flex flex-col md:flex-row gap-4 mt-8 w-full max-w-xs md:max-w-md justify-center">
-            <div className="flex-1 bg-white border border-gray-200 rounded-xl shadow p-4 flex flex-col items-center">
+          <div className="flex flex-row gap-4 mt-8 w-full max-w-xs md:max-w-md justify-center">
+            <div className="flex-1 min-w-[140px] bg-white border border-gray-200 rounded-xl shadow p-4 flex flex-col items-center">
               <div className="flex items-center gap-2 mb-1">
                 <span className="text-red-500 text-xl">❤</span>
                 <span className="font-semibold text-gray-700 text-base">Heart Rate</span>
@@ -466,7 +466,7 @@ const ScanView: React.FC = () => {
               <div className="text-2xl font-bold text-gray-900">{heartRate} <span className="text-base font-medium">bpm</span></div>
               <div className="text-xs text-gray-500 mt-1">Beats per minute</div>
             </div>
-            <div className="flex-1 bg-white border border-gray-200 rounded-xl shadow p-4 flex flex-col items-center">
+            <div className="flex-1 min-w-[140px] bg-white border border-gray-200 rounded-xl shadow p-4 flex flex-col items-center">
               <div className="flex items-center gap-2 mb-1">
                 <span className="text-pink-500 text-xl">📈</span>
                 <span className="font-semibold text-gray-700 text-base">HRV</span>
