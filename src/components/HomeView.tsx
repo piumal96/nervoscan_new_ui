@@ -19,17 +19,17 @@ const HomeView = () => {
 
   useEffect(() => {
     setIsVisible(true);
-    // Check for system preference
-    const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    setIsDarkMode(isDark);
-    if (isDark) {
-      document.documentElement.classList.add('dark');
-    }
+    // Set default theme to light mode
+    setIsDarkMode(false);
+    document.documentElement.classList.remove('dark');
   }, []);
 
   const toggleDarkMode = () => {
     setIsDarkMode(!isDarkMode);
-    document.documentElement.classList.toggle('dark');
+    // Add a small delay to ensure smooth transition
+    requestAnimationFrame(() => {
+      document.documentElement.classList.toggle('dark');
+    });
   };
 
   const metricCards: MetricCardData[] = [
@@ -103,7 +103,7 @@ const HomeView = () => {
   ];
 
   return (
-    <div className="fixed inset-0 flex bg-gradient-to-br from-gray-50 via-blue-50 to-indigo-50 dark:from-gray-900 dark:via-blue-900 dark:to-indigo-900 transition-colors duration-300">
+    <div className="fixed inset-0 flex bg-gradient-to-br from-gray-50 via-blue-50 to-indigo-50 dark:from-gray-900 dark:via-blue-900 dark:to-indigo-900 transition-colors duration-300 theme-transition">
       {/* Sidebar - Only visible on desktop */}
       <div className="hidden lg:flex flex-col w-64 border-r border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
         <div className="p-6">
