@@ -102,11 +102,12 @@ const ScanView: React.FC = () => {
     initFaceLandmarker();
   }, []);
 
-  // Auto-start camera on mount
+  // Auto-start camera and face mesh preview on mount, never stop
   useEffect(() => {
     startWebcam();
-    // Cleanup on unmount
-    return () => stopWebcam();
+    // Do not stop webcam on unmount to keep preview always on
+    // If you want to stop on unmount, uncomment the next line:
+    // return () => stopWebcam();
     // eslint-disable-next-line
   }, []);
 
@@ -355,9 +356,6 @@ const ScanView: React.FC = () => {
   };
 
   const handleStartScan = () => {
-    if (!cameraActive) {
-      startWebcam();
-    }
     setScanning(true);
     setProgress(0);
     setError(null);
@@ -375,14 +373,14 @@ const ScanView: React.FC = () => {
       if (currentStep >= steps) {
         clearInterval(timer);
         setScanning(false);
-        stopWebcam();
+        // Do NOT stopWebcam();
       }
     }, interval);
   };
 
   const handleStopScan = () => {
     setScanning(false);
-    stopWebcam();
+    // Do NOT stopWebcam();
   };
 
   // Dummy values for Heart Rate and HRV (replace with real values if available)
@@ -449,25 +447,35 @@ const ScanView: React.FC = () => {
             </div>
           </div>
         )}
-        {/* Heart Rate and HRV cards below scan area */}
-        <div className="flex flex-col md:flex-row gap-4 mt-8 w-full max-w-xs md:max-w-md justify-center">
-          <div className="flex-1 bg-white border border-gray-200 rounded-xl shadow p-4 flex flex-col items-center">
-            <div className="flex items-center gap-2 mb-1">
-              <span className="text-red-500 text-xl">❤</span>
-              <span className="font-semibold text-gray-700 text-base">Heart Rate</span>
+        {/* Heart Rate and HRV cards or error message below scan area */}
+        {alignmentStatus && alignmentStatus !== 'Face is properly aligned' ? (
+          <div className="flex flex-col items-center mt-8 w-full max-w-xs md:max-w-md">
+            <div className="bg-red-100 border border-red-300 text-red-700 rounded-xl shadow p-4 w-full text-center font-semibold">
+              {alignmentStatus === 'Face is too far from camera' || alignmentStatus === 'Face is too close to camera' || alignmentStatus === 'Face is looking too far left' || alignmentStatus === 'Face is too far right'
+                ? 'Face not detected correctly. Please center your face in the circle.'
+                : alignmentStatus}
             </div>
-            <div className="text-2xl font-bold text-gray-900">{heartRate} <span className="text-base font-medium">bpm</span></div>
-            <div className="text-xs text-gray-500 mt-1">Beats per minute</div>
           </div>
-          <div className="flex-1 bg-white border border-gray-200 rounded-xl shadow p-4 flex flex-col items-center">
-            <div className="flex items-center gap-2 mb-1">
-              <span className="text-pink-500 text-xl">📈</span>
-              <span className="font-semibold text-gray-700 text-base">HRV</span>
+        ) : (
+          <div className="flex flex-col md:flex-row gap-4 mt-8 w-full max-w-xs md:max-w-md justify-center">
+            <div className="flex-1 bg-white border border-gray-200 rounded-xl shadow p-4 flex flex-col items-center">
+              <div className="flex items-center gap-2 mb-1">
+                <span className="text-red-500 text-xl">❤</span>
+                <span className="font-semibold text-gray-700 text-base">Heart Rate</span>
+              </div>
+              <div className="text-2xl font-bold text-gray-900">{heartRate} <span className="text-base font-medium">bpm</span></div>
+              <div className="text-xs text-gray-500 mt-1">Beats per minute</div>
             </div>
-            <div className="text-2xl font-bold text-gray-900">{hrv}<span className="text-base font-medium">ms</span></div>
-            <div className="text-xs text-gray-500 mt-1">HRV (milliseconds)</div>
+            <div className="flex-1 bg-white border border-gray-200 rounded-xl shadow p-4 flex flex-col items-center">
+              <div className="flex items-center gap-2 mb-1">
+                <span className="text-pink-500 text-xl">📈</span>
+                <span className="font-semibold text-gray-700 text-base">HRV</span>
+              </div>
+              <div className="text-2xl font-bold text-gray-900">{hrv}<span className="text-base font-medium">ms</span></div>
+              <div className="text-xs text-gray-500 mt-1">HRV (milliseconds)</div>
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );
