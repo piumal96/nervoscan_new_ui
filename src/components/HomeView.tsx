@@ -222,8 +222,18 @@ const HomeView = () => {
               <div className="lg:col-span-8 flex flex-col gap-8" aria-label="Overview and metrics">
                 {/* Quick Overview */}
                 <div>
-                  <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-4 px-1">Quick Overview</h2>
-                  <QuickSummaryCards data={sampleData} />
+                  <div className="mb-4 px-1">
+                    <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-1">Quick Overview</h2>
+                    <p className="text-sm text-gray-600 dark:text-gray-400 lg:hidden">Your health metrics at a glance</p>
+                  </div>
+                  <div className="lg:p-0 -mx-1 lg:mx-0">
+                    <QuickSummaryCards data={sampleData} />
+                  </div>
+                </div>
+                {/* Stress Level - Mobile view only */}
+                <div className="lg:hidden">
+                  <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-4 px-1">Stress Level</h2>
+                  <StressLevelView stressLevel={sampleData.stress_level} />
                 </div>
                 {/* Detailed Metrics */}
                 <div>
@@ -253,11 +263,6 @@ const HomeView = () => {
             {/* Health Score - Mobile view only */}
             <div className="lg:hidden mt-6">
               <HealthScore score={sampleData.healthScore} />
-            </div>
-            {/* Stress Level - Mobile view only */}
-            <div className="lg:hidden mt-6">
-              <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-4 px-1">Stress Level</h2>
-              <StressLevelView stressLevel={sampleData.stress_level} />
             </div>
 
             {/* Footer */}
